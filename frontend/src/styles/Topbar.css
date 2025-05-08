@@ -1,0 +1,81 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #353535;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topbar-logo {
+    user-select: none;
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.topbar-search {
+    flex: 1;
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topbar-search-icon {
+    margin-right: 8px;
+}
+
+.topbar-search input {
+    width: 20%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    padding-left: 32px;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+.topbar-search input:focus {
+    outline: none;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 18px;
+    margin-right: 30px;
+}
+
+.topbar-action-icon {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 9px;
+}
+
+.topbar-action-icon:hover {
+    background-color: rgb(43, 43, 43);
+    border-radius: 50%;
+}
+
+#logout {
+    color: crimson;
+}
+
+.topbar-button {
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.topbar-button:hover {
+    background-color: #f0f0f0;
+}

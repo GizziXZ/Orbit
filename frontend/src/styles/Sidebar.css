@@ -2,7 +2,7 @@
     /* width: 250px; */
     /* height: 100vh; */
     background-color: #2e2e2e;
-    border-right: 1px solid #3d3d3d;
+    /* border-right: 1px solid #3d3d3d; */
     padding: 15px;
     position: fixed;
     top: 50%;
@@ -30,14 +30,17 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .sidebar-item {
+    user-select: none;
+    cursor: pointer;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .sidebar-link {
@@ -55,12 +58,16 @@
 }
 
 .sidebar-icon {
-    user-select: none;
-    cursor: pointer;    
     font-size: 25px;
-    /* margin-right: 10px; */
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* .sidebar-text {
+.sidebar-text {
+    margin-left: 8px;
     font-size: 16px;
-} */
+    font-family: sans-serif;
+}

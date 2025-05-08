@@ -14,7 +14,6 @@ body {
 
 .home-title {
     user-select: none;
-    /* cursor: pointer; */
     position: absolute;
     top: 0;
     right: 0;
@@ -28,14 +27,12 @@ body {
     margin-bottom: 20px;
 }
 
-/* Feed Styles */
 .feed {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Post Styles */
 .post {
     background-color: #242424;
     border: 1px solid #333;
@@ -44,26 +41,20 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Post Header */
 .post-header {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 6px;
     border-bottom: 1px solid #333;
 }
 
 .post-avatar {
     width: 40px;
     height: 40px;
-    background-color: #555;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-right: 10px;
+    object-fit: cover;
+    border: 1px solid #555;
 }
 
 .post-username {
@@ -72,7 +63,6 @@ body {
     color: #ffffff;
 }
 
-/* Post Image */
 .post-image {
     width: 100%;
     height: auto;
@@ -81,9 +71,90 @@ body {
     display: block;
 }
 
-/* Post Caption */
 .post-caption {
     padding: 10px;
     font-size: 14px;
     color: #cccccc;
+}
+
+.post-caption a {
+    padding-right: 22px;
+    word-break: break-all;
+}
+
+.post-heart {
+    vertical-align: middle;
+    margin-top: -5px;
+    float: right;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.post-heart:hover {
+    transform: scale(1.2);
+}
+
+.suggestions {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    width: 250px;
+    background-color: #242424;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #e0e0e0;
+}
+
+.suggestions-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.suggestion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.suggestion:last-child {
+    margin-bottom: 0;
+}
+
+.suggestion-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    border: 1px solid #555;
+}
+
+.suggestion-username {
+    font-size: 14px;
+    font-weight: bold;
+    color: #cccccc;
+}
+
+.suggestions-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.suggestions-button:hover {
+    background-color: #45a049;
 }
