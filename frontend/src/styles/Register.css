@@ -30,6 +30,19 @@
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
+    outline: none;
+}
+
+.register-input.error-border {
+    border-color: #ff4d4d;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: -6px;
+    margin-bottom: 8px;
+    text-align: left;
 }
 
 .register-button {
