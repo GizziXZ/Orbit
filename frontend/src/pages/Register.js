@@ -49,8 +49,7 @@ function Register() {
             });
 
             if (response.ok) {
-                alert("Registration successful");
-                // TODO - Redirect to login or home page
+                window.location.href = "/login";
             } else {
                 const errorData = await response.json();
                 alert(errorData.message);

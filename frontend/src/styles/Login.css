@@ -32,6 +32,18 @@
     box-sizing: border-box;
 }
 
+.login-input.error-border {
+    border-color: #ff4d4d;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: -6px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
 .login-button {
     width: 100%;
     padding: 10px;
