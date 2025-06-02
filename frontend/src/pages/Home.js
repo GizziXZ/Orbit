@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import Heart from '@react-sandbox/heart'
+import Post from "../components/Post";
 import "../styles/Home.css";
 
 function Home() {
@@ -31,10 +31,6 @@ function Home() {
         }
     ]
 
-    // all the posts get liked cause of the heart component, this is because we don't have a backend yet
-    // and we don't have a way to store the state of the heart
-    const [active, setActive] = useState(false);
-
     return (
         <div className="home-container">
         <Topbar />
@@ -42,28 +38,8 @@ function Home() {
             <Sidebar />
             {/* <h1 className="home-title">Orbit</h1> */}
             <div className="feed">
-                {posts.map((post) => (
-                    <div key={post.id} className="post">
-                        <div className="post-header">
-                            <img className="post-avatar"></img>
-                            <h2 className="post-username">{post.username}</h2>
-                        </div>
-
-                        <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => setActive(true)} />
-
-                        <p className="post-caption">
-                            <Heart
-                                width={28}
-                                height={28}
-                                active={active}
-                                onClick={() => setActive(!active)}
-                                inactiveColor="#7d7d7d"
-                                className="post-heart"
-                            />
-                            <strong>{post.username}</strong> <a>{post.caption}</a>
-                        </p>
-                    </div>
-                ))}
+                <Post post={posts[0]} />
+                <Post post={posts[1]} />
             </div>
             <div className="suggestions">
                 <h2 className="suggestions-title">Suggestions for you</h2>
