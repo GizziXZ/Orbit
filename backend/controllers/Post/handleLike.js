@@ -1,4 +1,4 @@
-const User = require('../models/users');
+const User = require('../../models/users');
 const jwt = require('jsonwebtoken');
 
 async function handleLike(req, res) {
@@ -39,6 +39,4 @@ async function handleLike(req, res) {
     }
 }
 
-module.exports = {
-    handleLike,
-}
+module.exports = handleLike;

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Post from "../components/Post";
 import "../styles/Home.css";
 
 function Home() {
-    const posts = [ // placeholder data
+    const placeholderPosts = [ // placeholder data
         {
             id: 1,
             username: "user1",
@@ -19,6 +19,25 @@ function Home() {
             caption: "this is romero, he knows how to use the litter box, but he also knows what I did to him, what I did to his brother, and what I will do to him if he doesn't stop looking at me like that",
         }
     ];
+
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch('/api/posts');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setPosts(data);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        };
+
+        fetchPosts();
+    }, []);
 
     const suggestedUsers = [ // placeholder data
         {

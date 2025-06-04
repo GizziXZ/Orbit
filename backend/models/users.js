@@ -38,11 +38,13 @@ const userSchema = new mongoose.Schema({
         default: [],
     },
     posts: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Post',
         default: [],
     },
     likedPosts: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Post',
         default: [],
     }
 });
