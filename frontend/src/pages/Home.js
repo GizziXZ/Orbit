@@ -35,7 +35,6 @@ function Home() {
                 console.error('Error fetching posts:', error);
             }
         };
-
         fetchPosts();
     }, []);
 
@@ -57,8 +56,10 @@ function Home() {
             <Sidebar />
             {/* <h1 className="home-title">Orbit</h1> */}
             <div className="feed">
-                <Post post={posts[0]} />
-                <Post post={posts[1]} />
+                {/* <Post post={posts[0]} /> */}
+                {posts.map((post) => (
+                    <Post key={post.id} post={post} />
+                ))}
             </div>
             <div className="suggestions">
                 <h2 className="suggestions-title">Suggestions for you</h2>

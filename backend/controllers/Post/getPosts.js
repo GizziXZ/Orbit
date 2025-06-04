@@ -14,7 +14,7 @@ async function getPosts(req, res) {
 
         const postsWithLikeStatus = posts.map(post => ({
             ...post.toObject(),
-            isLiked: user.likedPosts.includes(post._id.toString()),
+            isLiked: user.likedPosts.includes(post.id.toString()),
         }));
 
         return res.status(200).json(postsWithLikeStatus);
