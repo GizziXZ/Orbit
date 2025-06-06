@@ -40,7 +40,7 @@ function Register() {
         }
 
         try {
-            const response = await fetch(`${window.location.host}:5000/api/auth/register`, {
+            const response = await fetch(`/api/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

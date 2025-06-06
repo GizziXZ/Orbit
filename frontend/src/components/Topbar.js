@@ -5,7 +5,7 @@ import { faMagnifyingGlass, faHome, faMessage, faRightFromBracket, faUser } from
 
 function Topbar() {
     const handleLogout = async () => {
-        const response = await fetch(`${window.location.host}:5000/api/auth/logout`, {
+        const response = await fetch(`/api/auth/logout`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
