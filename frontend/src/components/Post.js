@@ -7,7 +7,7 @@ function Post({ post }) {
     const handleLike = async (id) => {
         setActive(!active);
 
-        const response = await fetch(`/api/posts/${id}/like`, {
+        const response = await fetch(`${window.location.host}:5000/api/posts/${id}/like`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

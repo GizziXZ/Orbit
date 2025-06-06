@@ -25,7 +25,7 @@ function Home() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('/api/posts');
+                const response = await fetch(`${window.location.host}:5000/api/posts`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

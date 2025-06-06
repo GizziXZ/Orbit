@@ -32,7 +32,7 @@ function Login() {
         }
 
         try {
-            const response = await fetch("/api/auth/login", {
+            const response = await fetch(`${window.location.host}:5000/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

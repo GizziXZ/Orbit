@@ -9,7 +9,7 @@ function ProtectedRoute({ element: Element }) {
 
     React.useEffect(() => {
         // check token validity with a fetch request
-        const response = fetch('/api/protected', {
+        fetch(`${window.location.host}:5000/api/protected`, {
             method: 'GET',
             credentials: 'include', // Include cookies in the request
         }).then(async (response) => {
