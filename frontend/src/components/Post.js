@@ -25,7 +25,7 @@ function Post({ post }) {
         <div key={post.id} className="post">
             <div className="post-header">
                 <img className="post-avatar"></img>
-                <h2 className="post-username">{post.userId}</h2>
+                <h2 className="post-username">{post.username}</h2>
             </div>
 
             <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(true)} />
