@@ -29,6 +29,7 @@ function Post({ post }) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            // body: JSON.stringify({ bookmarked: !post.bookmarked })
         });
     }
 
@@ -48,8 +49,12 @@ function Post({ post }) {
         };
     }, [postOptionsVisible]);
 
+    React.useEffect(() => {
+        setActive(post.isLiked || false); // Initialize active state based on post data
+    }, [post.isLiked]);
+
     return (
-        <div key={post.id} className="post">
+        <div key={post._id} className="post">
             <div className="post-header">
                 <img className="post-avatar"></img>
                 <h2 className="post-username">{post.username}</h2>
@@ -71,21 +76,21 @@ function Post({ post }) {
                     {postOptionsVisible && <div className="post-options-dropdown">
                         <ul>
                             <li>
-                                <FontAwesomeIcon icon={faBookmark} className="post-bookmark-icon" title="Bookmark" onClick={() => handleBookmark(post.id)} /> Bookmark
+                                <FontAwesomeIcon icon={faBookmark} className="post-bookmark-icon" title="Bookmark" onClick={() => handleBookmark(post._id)} /> Bookmark
                             </li>
                         </ul>
                     </div>}
                 </div>
             </div>
 
-            <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(post.id)} />
+            <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(post._id)} />
 
             <p className="post-caption">
                 <Heart
                     width={28}
                     height={28}
                     active={active}
-                    onClick={() => handleLike(post.id)}
+                    onClick={() => handleLike(post._id)}
                     inactiveColor="#7d7d7d"
                     className="post-heart"
                 />

@@ -8,6 +8,6 @@ const upload = multer();
 
 router.get('/', getPosts);
 router.post('/:id/like', handleLike);
-router.post('/create', upload.single('image'),createPost);
+router.post('/create', upload.single('image'), createPost);
 
 module.exports = router;

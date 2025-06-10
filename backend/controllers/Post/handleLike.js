@@ -5,8 +5,8 @@ async function handleLike(req, res) {
     try {
         const like = req.body.liked;
         const postId = req.params.id;
-        const token = req.cookies.token;
-        const userId = jwt.verify(token, process.env.JWT_SECRET).id;
+        const token = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
+        const userId = token.id;
 
         if (like === undefined || !postId || !userId) {
             return res.status(400).json({ message: 'Like state, Post ID and a valid token are required' });
