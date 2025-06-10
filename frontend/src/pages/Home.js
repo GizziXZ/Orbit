@@ -5,21 +5,6 @@ import Post from "../components/Post";
 import "../styles/Home.css";
 
 function Home() {
-    const placeholderPosts = [ // placeholder data
-        {
-            id: 1,
-            username: "user1",
-            image: "https://media1.tenor.com/m/Bg3ShfbkKJwAAAAd/rigby-cat-rigby.gif",
-            caption: "please pray for my cat, he ate my week's worth of cannabis",
-        },
-        {
-            id: 2,
-            username: "user2",
-            image: "https://media1.tenor.com/m/X0d_-kG72C4AAAAd/orange-cat-looking-at-camera.gif",
-            caption: "this is romero, he knows how to use the litter box, but he also knows what I did to him, what I did to his brother, and what I will do to him if he doesn't stop looking at me like that",
-        }
-    ];
-
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {

@@ -30,11 +30,13 @@ const userSchema = new mongoose.Schema({
         default: '',
     },
     followers: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
         default: [],
     },
     following: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
         default: [],
     },
     posts: {
@@ -43,6 +45,11 @@ const userSchema = new mongoose.Schema({
         default: [],
     },
     likedPosts: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Post',
+        default: [],
+    },
+    bookmarks: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Post',
         default: [],

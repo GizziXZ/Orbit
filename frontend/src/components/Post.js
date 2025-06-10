@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis, faBookmark } from "@fortawesome/free-solid-svg-icons"
 import Heart from '@react-sandbox/heart'
 
 function Post({ post }) {
@@ -20,15 +22,63 @@ function Post({ post }) {
             setActive(active); // revert the like state if the request fails
         }
     }
+
+    const handleBookmark = async (id) => {
+        const response = await fetch(`/api/posts/${id}/bookmark`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    const [postOptionsVisible, setPostOptionsVisible] = useState(false);
     
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.post-options') && postOptionsVisible) {
+                setPostOptionsVisible(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [postOptionsVisible]);
+
     return (
         <div key={post.id} className="post">
             <div className="post-header">
                 <img className="post-avatar"></img>
                 <h2 className="post-username">{post.username}</h2>
+                <div className="post-options">
+                    <FontAwesomeIcon
+                        icon={faEllipsis} 
+                        className="post-options-icon" 
+                        title="More" 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setPostOptionsVisible((prev) => !prev);
+                            document.querySelectorAll('.post-options-dropdown').forEach((dropdown) => {
+                                if (dropdown !== e.target.closest('.post').querySelector('.post-options-dropdown')) {
+                                    dropdown.style.display = 'none';
+                                }
+                            });
+                        }}
+                    />
+                    {postOptionsVisible && <div className="post-options-dropdown">
+                        <ul>
+                            <li>
+                                <FontAwesomeIcon icon={faBookmark} className="post-bookmark-icon" title="Bookmark" onClick={() => handleBookmark(post.id)} /> Bookmark
+                            </li>
+                        </ul>
+                    </div>}
+                </div>
             </div>
 
-            <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(true)} />
+            <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(post.id)} />
 
             <p className="post-caption">
                 <Heart

@@ -34,11 +34,60 @@ body {
 }
 
 .post {
+    position: relative;
     background-color: #242424;
     border: 1px solid #333;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.post-options {
+    position: absolute;
+    right: 10px;
+    user-select: none;
+}
+
+.post-options-icon {
+    font-size: 20px;
+    color: #7d7d7d;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.post-options-icon:hover {
+    color: #ffffff;
+}
+
+.post-options-dropdown {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background-color: #242424;
+    border: 1px solid #333;
+    border-radius: 9px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 120px;
+    padding: 5px 0;
+}
+
+.post-options-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.post-options-dropdown li {
+    border-radius: 3px;
+    padding: 8px 12px;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.post-options-dropdown li:hover {
+    background-color: #333;
 }
 
 .post-header {
