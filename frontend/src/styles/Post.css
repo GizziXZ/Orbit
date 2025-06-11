@@ -93,18 +93,34 @@
 
 .post-caption a {
     padding-right: 22px;
-    word-break: break-all;
+    /* word-break: break-all; */
+    word-break: normal;
 }
 
 .post-heart {
-    vertical-align: middle;
-    margin-top: -5px;
-    float: right;
+    /* vertical-align: middle; */
+    /* margin-top: -5px; */
+    /* float: right; */
     color: #ff4d4d;
-    cursor: pointer;
     transition: transform 0.2s;
 }
 
 .post-heart:hover {
     transform: scale(1.2);
+}
+
+.post-likes {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    right: 10px;
+    bottom: 10px;
+}
+
+.post-likes a {
+    position: static;
+    text-align: center;
+    user-select: none;
+    padding: 0;
 }

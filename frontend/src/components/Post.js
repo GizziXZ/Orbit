@@ -10,6 +10,7 @@ function Post({ post }) {
 
     const handleLike = async (id) => {
         setHeartState(!heartState);
+        post.likes = heartState ? post.likes.filter(like => like !== post.user._id) : [...post.likes, post.user._id];
 
         const response = await fetch(`/api/posts/${id}/like`, {
             method: 'POST',
@@ -22,6 +23,7 @@ function Post({ post }) {
         if (!response.ok) {
             console.error(`Couldn't handle like for post ${id}: ${(await response.json()).message}`);
             setHeartState(heartState); // revert the like state if the request fails
+            post.likes = heartState ? [...post.likes, post.user._id] : post.likes.filter(like => like !== post.user._id);
         }
     }
 
@@ -91,15 +93,18 @@ function Post({ post }) {
             <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(post._id)} />
 
             <p className="post-caption">
-                <Heart
-                    width={28}
-                    height={28}
-                    active={heartState}
-                    onClick={() => handleLike(post._id)}
-                    inactiveColor="#7d7d7d"
-                    className="post-heart"
-                />
                 <strong>{post.user.username}</strong> <a>{post.caption}</a>
+                <div className="post-likes">
+                    <a>{post.likes.length}</a>
+                    <Heart
+                        width={28}
+                        height={28}
+                        active={heartState}
+                        onClick={() => handleLike(post._id)}
+                        inactiveColor="#7d7d7d"
+                        className="post-heart"
+                    />
+                </div>
             </p>
         </div>
     );
