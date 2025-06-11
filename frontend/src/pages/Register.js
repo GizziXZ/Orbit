@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "../styles/Register.css";
 
 function Register() {
-    const [formData, setFormData] = React.useState({
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
 
-    const [errors, setErrors] = React.useState({});
+    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +51,7 @@ function Register() {
             });
 
             if (response.ok) {
-                window.location.href = "/login";
+                navigate("/login");
             } else {
                 const errorData = await response.json();
                 alert(errorData.message);

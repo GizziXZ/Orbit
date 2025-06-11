@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "../styles/Login.css";
 
 function Login() {
-    const [formData, setFormData] = React.useState({
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
         username: "",
         password: "",
     });
 
-    const [errors, setErrors] = React.useState({});
+    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,7 +43,7 @@ function Login() {
             });
 
             if (response.ok) {
-                window.location.href = "/home";
+                navigate("/home");
             } else {
                 const errorData = await response.json();
                 // alert(errorData.message);

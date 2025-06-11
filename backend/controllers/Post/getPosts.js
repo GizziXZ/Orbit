@@ -12,18 +12,19 @@ async function getPosts(req, res) {
         const posts = await Post.find()
         const user = await User.findById(token.id);
 
-        const postsWithLikeStatus = await Promise.all(
+        const enrichedPosts = await Promise.all(
             posts.map(async post => ({
                 ...post.toObject(),
-                username: await User.findById(post.userId).then(user => user.username),
+                user: await User.findById(post.user).select('username'),
                 isLiked: user.likedPosts.includes(post.id.toString()),
+                isBookmarked: user.bookmarks.includes(post.id.toString()),
             }))
         );
 
         // Sort posts by creation date in descending order
-        postsWithLikeStatus.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        enrichedPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-        return res.status(200).json(postsWithLikeStatus);
+        return res.status(200).json(enrichedPosts);
     } catch (error) {
         console.error('Error fetching posts:', error);
         return res.status(500).json({ message: 'Internal server error' });

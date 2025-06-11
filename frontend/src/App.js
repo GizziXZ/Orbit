@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Bookmarks from "./pages/Bookmarks";
 
 function ProtectedRoute({ element: Element }) {
     const [isAuthenticated, setIsAuthenticated] = React.useState(null);
@@ -11,7 +12,7 @@ function ProtectedRoute({ element: Element }) {
         // check token validity with a fetch request
         fetch(`/api/protected`, {
             method: 'GET',
-            credentials: 'include', // Include cookies in the request
+            credentials: 'include',
         }).then(async (response) => {
             if (response.ok) {
                 setIsAuthenticated(true);
@@ -37,6 +38,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<ProtectedRoute element={Home} />} />
                 <Route path="/home" element={<ProtectedRoute element={Home} />} />
+                <Route path="/bookmarks" element={<ProtectedRoute element={Bookmarks} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>

@@ -1,9 +1,11 @@
 import React from "react";
 import "../styles/Topbar.css";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHome, faMessage, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Topbar() {
+    const navigate = useNavigate();
     const handleLogout = async () => {
         const response = await fetch(`/api/auth/logout`, {
             method: "POST",
@@ -14,7 +16,7 @@ function Topbar() {
         });
 
         if (response.ok) {
-            window.location.href = "/login";
+            navigate("/login");
         } else {
             const errorData = await response.json();
             alert(errorData.message || "An error occurred during logout. Please try again.");
@@ -29,7 +31,7 @@ function Topbar() {
                 <input type="text" placeholder="Search Orbit" />
             </div>
             <div className="topbar-actions">
-                <FontAwesomeIcon icon={faHome} className="topbar-action-icon" title="Home" />
+                <FontAwesomeIcon icon={faHome} className="topbar-action-icon" title="Home" onClick={() => navigate("/home")}/>
                 <FontAwesomeIcon icon={faMessage} className="topbar-action-icon" title="Chats" />
                 <FontAwesomeIcon icon={faUser} className="topbar-action-icon" title="Profile" /> {/*Replacing with user pfp later*/}
                 <FontAwesomeIcon icon={faRightFromBracket} className="topbar-action-icon" id="logout" title="Logout" onClick={handleLogout} />

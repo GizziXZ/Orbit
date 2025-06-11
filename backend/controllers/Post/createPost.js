@@ -21,7 +21,7 @@ async function createPost(req, res) {
         }
 
         const newPost = new Post({
-            userId: user.id,
+            user: user.id,
             caption,
             image: `data:${image.mimetype};base64,${image.buffer.toString('base64')}`,
         });

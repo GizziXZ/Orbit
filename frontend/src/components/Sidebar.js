@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "../styles/Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faMagnifyingGlass, faEnvelope, faBell, faPlus, faUser, faCog, faGlobe, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faPlus, faCog, faGlobe, faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
+    const navigate = useNavigate();
     const menuItems = [
-        // { name: "Home", icon: faHouse },
-        // { name: "Search", icon: faMagnifyingGlass },
-        // { name: "Messages", icon: faEnvelope },
         { name: "Create Post", icon: faPlus },
         { name: "Communities", icon: faGlobe },
-        { name: "Saved", icon: faBookmark },
+        { name: "Bookmarks", icon: faBookmark },
         { name: "Notifications", icon: faBell },
-        // { name: "Profile", icon: faUser },
         { name: "Settings", icon: faCog }
     ];
 
-    const [createPostModal, setCreatePostModal] = React.useState(false);
+    const [createPostModal, setCreatePostModal] = useState(false);
 
     const handleItemClick = (item) => {
         switch (item.name) {
             case "Create Post":
                 setCreatePostModal(true);
+                break;
+            case "Bookmarks":
+                navigate("/bookmarks");
                 break;
         }
     }

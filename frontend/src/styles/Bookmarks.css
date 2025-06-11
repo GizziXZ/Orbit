@@ -1,0 +1,20 @@
+.bookmarks {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bookmarks-title {
+    user-select: none;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
