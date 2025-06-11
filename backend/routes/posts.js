@@ -9,9 +9,9 @@ const handleBookmark = require('../controllers/Post/handleBookmark');
 const getBookmarks = require('../controllers/Post/getBookmarks');
 
 router.get('/', getPosts);
+router.get('/bookmarks', getBookmarks);
 router.post('/:id/like', handleLike);
 router.post('/create', upload.single('image'), createPost);
 router.post('/:id/bookmark', handleBookmark);
-router.get('/bookmarks', getBookmarks);
 
 module.exports = router;
