@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import "../styles/Login.css";
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -41,13 +43,12 @@ function Login() {
                 },
                 body: JSON.stringify({ username, password }),
             });
-
+            const data = await response.json();
             if (response.ok) {
+                dispatch({ type: "user/setUser", payload: { id: data.userData.id, username: data.userData.username } });
                 navigate("/home");
             } else {
-                const errorData = await response.json();
-                // alert(errorData.message);
-                setErrors({ login: errorData.message });
+                setErrors({ login: data.message });
             }
         } catch (error) {
             console.error("Error during login:", error);

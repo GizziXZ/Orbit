@@ -1,14 +1,16 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/userSlice";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bookmarks from "./pages/Bookmarks";
 
 function ProtectedRoute({ element: Element }) {
-    const [isAuthenticated, setIsAuthenticated] = React.useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         // check token validity with a fetch request
         fetch(`/api/protected`, {
             method: 'GET',
@@ -33,6 +35,23 @@ function ProtectedRoute({ element: Element }) {
 }
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        fetch(`/api/auth/me`, {
+            method: 'GET',
+            credentials: 'include',
+        }).then(async (response) => {
+            if (response.ok) {
+                const data = await response.json();
+                dispatch(setUser(data.userData));
+            } else {
+                console.error("Failed to fetch user data");
+            }
+        }).catch((error) => {
+            console.error("Error fetching user data:", error);
+        });
+    }, [dispatch]);
+
     return (
         <Router>
             <Routes>

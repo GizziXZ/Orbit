@@ -1,11 +1,13 @@
-import React from "react";
 import "../styles/Topbar.css";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHome, faMessage, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Topbar() {
     const navigate = useNavigate();
+    const username = useSelector((state) => state.user.username);
+    const userId = useSelector((state) => state.user.id);
     const handleLogout = async () => {
         const response = await fetch(`/api/auth/logout`, {
             method: "POST",
@@ -31,9 +33,9 @@ function Topbar() {
                 <input type="text" placeholder="Search Orbit" />
             </div>
             <div className="topbar-actions">
-                <FontAwesomeIcon icon={faHome} className="topbar-action-icon" title="Home" onClick={() => navigate("/home")}/>
+                <FontAwesomeIcon icon={faHome} className="topbar-action-icon" title="Home" onClick={() => navigate("/home")} />
                 <FontAwesomeIcon icon={faMessage} className="topbar-action-icon" title="Chats" />
-                <FontAwesomeIcon icon={faUser} className="topbar-action-icon" title="Profile" /> {/*Replacing with user pfp later*/}
+                <FontAwesomeIcon icon={faUser} className="topbar-action-icon" title={username || ""} onClick={() => navigate(`/profile/${userId}`)} /> {/*Replacing with user pfp later*/}
                 <FontAwesomeIcon icon={faRightFromBracket} className="topbar-action-icon" id="logout" title="Logout" onClick={handleLogout} />
             </div>
         </div>

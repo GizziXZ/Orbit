@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Post from "../components/Post";
@@ -32,7 +32,7 @@ function Home() {
             username: "user4",
             image: "https://media1.tenor.com/m/X0d_-kG72C4AAAAd/orange-cat-looking-at-camera.gif",
         }
-    ]
+    ];
 
     return (
         <div className="home-container">

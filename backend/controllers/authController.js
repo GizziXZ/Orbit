@@ -44,7 +44,6 @@ async function registerUser(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user
         const newUser = new User({
             username,
             password: hashedPassword,
@@ -84,7 +83,7 @@ async function loginUser(req, res) {
             sameSite: 'Strict',
             maxAge: 3600000, // 1 hour
         });
-        res.status(200).json({ message: 'Login successful' });
+        res.status(200).json({ userData: { id: user.id, username: user.username } });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -103,8 +102,26 @@ async function logoutUser(req, res) {
     }
 }
 
+async function getUserData(req, res) {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ userData: { id: user.id, username: user.username } });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
+    getUserData,
 };
