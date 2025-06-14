@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bookmarks from "./pages/Bookmarks";
+import Profile from "./pages/Profile";
 
 function ProtectedRoute({ element: Element }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -58,6 +59,7 @@ function App() {
                 <Route path="/" element={<ProtectedRoute element={Home} />} />
                 <Route path="/home" element={<ProtectedRoute element={Home} />} />
                 <Route path="/bookmarks" element={<ProtectedRoute element={Bookmarks} />} />
+                <Route path="/profile/:id" element={<ProtectedRoute element={Profile} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>

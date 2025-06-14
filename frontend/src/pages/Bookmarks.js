@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Topbar from "../components/Topbar";
 import Post from "../components/Post";
 import "../styles/Bookmarks.css";
 
 function Bookmarks() {
-    const [bookmarks, setBookmarks] = React.useState([]);
+    const [bookmarks, setBookmarks] = useState([]);
 
     useEffect(() => {
         const fetchBookmarks = async () => {

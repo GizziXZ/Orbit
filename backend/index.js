@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/protected', require('./routes/protectedRoutes'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/users', require('./routes/users'));
 
 // app.use(express.static(path.join(__dirname, '../frontend/build')));
 
