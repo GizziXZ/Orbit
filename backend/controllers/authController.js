@@ -83,7 +83,7 @@ async function loginUser(req, res) {
             sameSite: 'Strict',
             maxAge: 3600000, // 1 hour
         });
-        res.status(200).json({ userData: { id: user.id, username: user.username } });
+        res.status(200).json({ userData: { id: user.id, username: user.username, profilePicture: user.profilePicture } });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -113,7 +113,7 @@ async function getUserData(req, res) {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.status(200).json({ userData: { id: user.id, username: user.username } });
+        res.status(200).json({ userData: { id: user.id, username: user.username, profilePicture: user.profilePicture } });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }

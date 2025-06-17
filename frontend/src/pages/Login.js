@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
+import { setUser } from "../store/userSlice";
 import "../styles/Login.css";
 
 function Login() {
@@ -45,7 +46,7 @@ function Login() {
             });
             const data = await response.json();
             if (response.ok) {
-                dispatch({ type: "user/setUser", payload: { id: data.userData.id, username: data.userData.username } });
+                dispatch(setUser(data.userData));
                 navigate("/home");
             } else {
                 setErrors({ login: data.message });

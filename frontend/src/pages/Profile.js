@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import Topbar from "../components/Topbar";
+import '../styles/Profile.css';
 
 function Profile() {
     const { id } = useParams();
@@ -30,6 +32,7 @@ function Profile() {
 
     return (
         <div className="profile-container">
+            <Topbar />
             {loading ? (
                 <div>Loading...</div>
             ) : user ? (
@@ -41,7 +44,6 @@ function Profile() {
                     <p>Following: {user.following}</p>
                     <p>Posts: {user.posts.length}</p>
                     <p>Joined: {new Date(user.createdAt).toLocaleDateString()}</p>
-                    {/* Add more user details later */}
                 </div>
             ) : (
                 <div>User not found</div>
