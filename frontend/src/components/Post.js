@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faBookmark } from "@fortawesome/free-solid-svg-icons"
 import Heart from '@react-sandbox/heart'
@@ -46,7 +46,7 @@ function Post({ post }) {
 
     const [postOptionsVisible, setPostOptionsVisible] = useState(false);
     
-    React.useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.post-options') && postOptionsVisible) {
                 setPostOptionsVisible(false);
@@ -63,7 +63,7 @@ function Post({ post }) {
     return (
         <div key={post._id} className="post">
             <div className="post-header">
-                <img className="post-avatar"></img>
+                <img className="post-avatar" src={post.user.profilePicture || null}></img> {/* TODO - Fallback to a default avatar if profilePicture is null */}
                 <h2 className="post-username">{post.user.username}</h2>
                 <div className="post-options">
                     <FontAwesomeIcon

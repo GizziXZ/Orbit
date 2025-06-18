@@ -56,6 +56,14 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// Virtual for sorted posts (most recent first)
+userSchema.virtual('sortedPosts', {
+    ref: 'Post',
+    localField: 'posts',
+    foreignField: '_id',
+    options: { sort: { createdAt: -1 } }
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

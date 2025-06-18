@@ -16,8 +16,8 @@ async function getBookmarks(req, res) {
         const bookmarks = await user.populate({
             path: 'bookmarks',
             populate: {
-            path: 'user',
-            select: 'username'
+                path: 'user',
+                select: 'username'
             }
         }).then(u => u.bookmarks);
 

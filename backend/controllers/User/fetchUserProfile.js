@@ -9,22 +9,32 @@ async function fetchUserProfile(req, res) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const user = await User.findById(id);
+        const user = await User.findById(id).populate({
+            path: 'sortedPosts',
+            populate: { path: 'user', select: 'username profilePicture' }
+        });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+        
+        const enrichedPosts = user.sortedPosts.map(post => ({
+            ...post.toObject(),
+            isLiked: post.likes.includes(token.id),
+            isBookmarked: user.bookmarks.includes(post.id),
+        }));
 
-        await user.populate('posts');
         return res.status(200).json({
             user: {
+                id, // i mean... why not? its just asking me to do it
                 username: user.username,
                 createdAt: user.createdAt,
                 bio: user.bio,
                 profilePicture: user.profilePicture,
                 followers: user.followers.length,
                 following: user.following.length,
-                posts: user.posts
+                posts: enrichedPosts,
+                isFollowed: user.followers.includes(token.id),
             }
         });
     } catch (error) {
