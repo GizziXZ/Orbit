@@ -24,6 +24,9 @@ function Sidebar() {
             case "Bookmarks":
                 navigate("/bookmarks");
                 break;
+            case "Settings":
+                navigate("/settings");
+                break;
         }
     }
 

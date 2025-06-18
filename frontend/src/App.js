@@ -7,9 +7,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bookmarks from "./pages/Bookmarks";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 function ProtectedRoute({ element: Element }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // check token validity with a fetch request
@@ -19,6 +21,18 @@ function ProtectedRoute({ element: Element }) {
         }).then(async (response) => {
             if (response.ok) {
                 setIsAuthenticated(true);
+                
+                const meResponse = await fetch(`/api/auth/me`, {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+
+                if (meResponse.ok) {
+                    const data = await meResponse.json();
+                    dispatch(setUser(data.userData));
+                } else {
+                    console.error("Failed to fetch user data");
+                }
             } else {
                 setIsAuthenticated(false);
             }
@@ -26,7 +40,7 @@ function ProtectedRoute({ element: Element }) {
             console.error("Error checking authentication:", error);
             setIsAuthenticated(false);
         });
-    });
+    }, [dispatch]);
 
     if (isAuthenticated === null) {
         return <div>Loading...</div>; // temporary
@@ -36,23 +50,6 @@ function ProtectedRoute({ element: Element }) {
 }
 
 function App() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        fetch(`/api/auth/me`, {
-            method: 'GET',
-            credentials: 'include',
-        }).then(async (response) => {
-            if (response.ok) {
-                const data = await response.json();
-                dispatch(setUser(data.userData));
-            } else {
-                console.error("Failed to fetch user data");
-            }
-        }).catch((error) => {
-            console.error("Error fetching user data:", error);
-        });
-    }, [dispatch]);
-
     return (
         <Router>
             <Routes>
@@ -60,6 +57,8 @@ function App() {
                 <Route path="/home" element={<ProtectedRoute element={Home} />} />
                 <Route path="/bookmarks" element={<ProtectedRoute element={Bookmarks} />} />
                 <Route path="/profile/:id" element={<ProtectedRoute element={Profile} />} />
+                <Route path="/profile" element={<ProtectedRoute element={Profile} />} />
+                <Route path="/settings" element={<ProtectedRoute element={Settings} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>

@@ -15,7 +15,7 @@ async function getPosts(req, res) {
         const enrichedPosts = await Promise.all(
             posts.map(async post => ({
                 ...post.toObject(),
-                user: await User.findById(post.user).select('username'),
+                user: await User.findById(post.user).select('username profilePicture'),
                 isLiked: user.likedPosts.includes(post.id.toString()),
                 isBookmarked: user.bookmarks.includes(post.id.toString()),
             }))

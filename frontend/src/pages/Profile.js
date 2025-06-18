@@ -8,11 +8,15 @@ import Post from "../components/Post";
 import '../styles/Profile.css';
 
 function Profile() {
-    const { id } = useParams();
+    let { id } = useParams();
     const currentUserId = useSelector((state) => state.user.id);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [following, setFollowing] = useState(false);
+
+    if (!id) {
+        id = currentUserId; // If no ID is provided, default back to current user ID
+    }
 
     useEffect(() => {
         const fetchUserProfile = async () => {

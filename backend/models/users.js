@@ -53,6 +53,16 @@ const userSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Post',
         default: [],
+    },
+    settings: {
+        type: Object,
+        default: {
+            privateProfile: false,
+            emailNotifications: false,
+            pushNotifications: true,
+            showOnlineStatus: true,
+            allowMessagesFrom: 'everyone', // 'everyone', 'followers', 'no one'
+        }
     }
 });
 

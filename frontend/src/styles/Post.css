@@ -55,6 +55,10 @@
     background-color: #333;
 }
 
+.report {
+    color: crimson;
+}
+
 .post-header {
     display: flex;
     align-items: center;
@@ -69,12 +73,14 @@
     margin-right: 10px;
     object-fit: cover;
     border: 1px solid #555;
+    cursor: pointer;
 }
 
 .post-username {
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
+    cursor: pointer;
 }
 
 .post-image {

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faBookmark } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsis, faBookmark, faFlag } from "@fortawesome/free-solid-svg-icons"
 import Heart from '@react-sandbox/heart'
 import '../styles/Post.css';
 
 function Post({ post }) {
+    const navigate = useNavigate();
     const [heartState, setHeartState] = useState(post.isLiked || false);
     const [bookmarked, setBookmarked] = useState(post.isBookmarked || false);
 
@@ -63,8 +65,8 @@ function Post({ post }) {
     return (
         <div key={post._id} className="post">
             <div className="post-header">
-                <img className="post-avatar" src={post.user.profilePicture || null}></img> {/* TODO - Fallback to a default avatar if profilePicture is null */}
-                <h2 className="post-username">{post.user.username}</h2>
+                <img className="post-avatar" onClick={() => navigate(`/profile/${post.user._id}`)} src={post.user.profilePicture || null}></img> {/* TODO - Fallback to a default avatar if profilePicture is null */}
+                <h2 className="post-username" onClick={() => navigate(`/profile/${post.user._id}`)}>{post.user.username}</h2>
                 <div className="post-options">
                     <FontAwesomeIcon
                         icon={faEllipsis} 
@@ -83,7 +85,10 @@ function Post({ post }) {
                     {postOptionsVisible && <div className="post-options-dropdown">
                         <ul>
                             <li onClick={() => handleBookmark(post._id)}>
-                                <FontAwesomeIcon icon={faBookmark} className="post-bookmark-icon" title="Bookmark" style={{ color: bookmarked ? 'gold' : "white" }} /> {bookmarked ? "Bookmarked" : "Bookmark"}
+                                <FontAwesomeIcon icon={faBookmark} title="Bookmark" style={{ color: bookmarked ? 'gold' : "white" }} /> {bookmarked ? "Bookmarked" : "Bookmark"}
+                            </li>
+                            <li>
+                                <FontAwesomeIcon icon={faFlag} className="report" title="Report" /> Report
                             </li>
                         </ul>
                     </div>}

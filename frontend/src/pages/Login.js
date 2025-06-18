@@ -46,7 +46,6 @@ function Login() {
             });
             const data = await response.json();
             if (response.ok) {
-                dispatch(setUser(data.userData));
                 navigate("/home");
             } else {
                 setErrors({ login: data.message });
