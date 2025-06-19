@@ -10,6 +10,9 @@ function Post({ post }) {
     const [heartState, setHeartState] = useState(post.isLiked || false);
     const [bookmarked, setBookmarked] = useState(post.isBookmarked || false);
 
+    // TODO - add timestamp for post createdAt
+    // TODO - add comments
+
     const handleLike = async (id) => {
         setHeartState(!heartState);
         post.likes = heartState ? post.likes.filter(like => like !== post.user._id) : [...post.likes, post.user._id];

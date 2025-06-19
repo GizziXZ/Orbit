@@ -5,6 +5,13 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    displayName: {
+        type: String,
+        required: true,
+        default: function() {
+            return this.username; // Default to username
+        },
+    },
     username: {
         type: String,
         required: true,
@@ -27,7 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: '',
+        default: 'https://cdn.discordapp.com/emojis/814750724939841547.webp?size=96&animated=true', // funny cat kissing camera
     },
     followers: {
         type: [mongoose.Schema.Types.ObjectId],

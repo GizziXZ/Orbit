@@ -20,6 +20,9 @@ const userSlice = createSlice({
             state.username = null;
             state.profilePicture = null;
             state.settings = null;
+        },
+        setUserSettings: (state, action) => {
+            state.settings = action.payload;
         }
     }
 });
