@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./store/userSlice";
 import Home from "./pages/Home";
@@ -13,6 +13,7 @@ function ProtectedRoute({ element: Element }) {
     const dispatch = useDispatch();
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const userData = useSelector((state) => state.user);
+    const location = useLocation();
 
     useEffect(() => {
         // check token validity with a fetch request
@@ -41,7 +42,7 @@ function ProtectedRoute({ element: Element }) {
             console.error("Error checking authentication:", error);
             setIsAuthenticated(false);
         });
-    }, [dispatch, userData]);
+    }, [dispatch, userData, location]);
 
     if (isAuthenticated === null) {
         return <div>Loading...</div>; // temporary
