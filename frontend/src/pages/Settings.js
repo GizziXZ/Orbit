@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Topbar from "../components/Topbar";
 import '../styles/Settings.css';
 
 function Settings() {
     const settings = useSelector(state => state.user.settings);
-    const [localSettings, setLocalSettings] = useState(() => settings);
+    const [localSettings, setLocalSettings] = useState();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setLocalSettings(settings);
+    }, [settings]);
 
     const handleToggle = (key) => {
         setLocalSettings(prev => ({
@@ -52,56 +56,62 @@ function Settings() {
             <Topbar />
             <div className="settings-container">
                 <h1>Settings</h1>
-                <div className="settings-group">
-                    <label className="settings-label">
-                        <span>Private Profile</span>
-                        <input
-                            type="checkbox"
-                            checked={localSettings.privateProfile}
-                            onChange={() => handleToggle('privateProfile')}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <label className="settings-label">
-                        <span>Email Notifications</span>
-                        <input
-                            type="checkbox"
-                            checked={localSettings.emailNotifications}
-                            onChange={() => handleToggle('emailNotifications')}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <label className="settings-label">
-                        <span>Push Notifications</span>
-                        <input
-                            type="checkbox"
-                            checked={localSettings.pushNotifications}
-                            onChange={() => handleToggle('pushNotifications')}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <label className="settings-label">
-                        <span>Show Online Status</span>
-                        <input
-                            type="checkbox"
-                            checked={localSettings.showOnlineStatus}
-                            onChange={() => handleToggle('showOnlineStatus')}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <label className="settings-label">
-                        <span>Allow Messages From</span>
-                        <select
-                            value={localSettings.allowMessagesFrom}
-                            onChange={handleSelect}
-                        >
-                            <option value="everyone">Everyone</option>
-                            <option value="followers">Followers</option>
-                            <option value="no one">No one</option>
-                        </select>
-                    </label>
-                </div>
-                <button className="settings-save" onClick={handleSave}>Save Changes</button>
+                {!localSettings ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        <div className="settings-group">
+                            <label className="settings-label">
+                                <span>Private Profile</span>
+                                <input
+                                    type="checkbox"
+                                    checked={localSettings.privateProfile}
+                                    onChange={() => handleToggle('privateProfile')}
+                                />
+                                <span className="slider"></span>
+                            </label>
+                            <label className="settings-label">
+                                <span>Email Notifications</span>
+                                <input
+                                    type="checkbox"
+                                    checked={localSettings.emailNotifications}
+                                    onChange={() => handleToggle('emailNotifications')}
+                                />
+                                <span className="slider"></span>
+                            </label>
+                            <label className="settings-label">
+                                <span>Push Notifications</span>
+                                <input
+                                    type="checkbox"
+                                    checked={localSettings.pushNotifications}
+                                    onChange={() => handleToggle('pushNotifications')}
+                                />
+                                <span className="slider"></span>
+                            </label>
+                            <label className="settings-label">
+                                <span>Show Online Status</span>
+                                <input
+                                    type="checkbox"
+                                    checked={localSettings.showOnlineStatus}
+                                    onChange={() => handleToggle('showOnlineStatus')}
+                                />
+                                <span className="slider"></span>
+                            </label>
+                            <label className="settings-label">
+                                <span>Allow Messages From</span>
+                                <select
+                                    value={localSettings.allowMessagesFrom}
+                                    onChange={handleSelect}
+                                >
+                                    <option value="everyone">Everyone</option>
+                                    <option value="followers">Followers</option>
+                                    <option value="no one">No one</option>
+                                </select>
+                            </label>
+                        </div>
+                        <button className="settings-save" onClick={handleSave}>Save Changes</button>
+                    </>
+                )}
             </div>
         </div>
     );
