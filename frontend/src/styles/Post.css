@@ -83,6 +83,12 @@
     cursor: pointer;
 }
 
+.post-timestamp {
+    font-size: 15px;
+    color: #999999;
+    margin-left: 8px;
+}
+
 .post-image {
     width: 100%;
     height: auto;
@@ -92,6 +98,8 @@
 }
 
 .post-caption {
+    margin-top: 0px;
+    margin-bottom: 8px;
     padding: 10px;
     font-size: 14px;
     color: #cccccc;
@@ -115,18 +123,52 @@
     transform: scale(1.2);
 }
 
-.post-likes {
-    position: absolute;
+.post-actions-row {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    right: 10px;
-    bottom: 10px;
+    gap: 12px;
+    margin: 10px 0 0 0;
+    padding: 0 10px;
 }
 
-.post-likes a {
+.post-likes {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
     position: static;
-    text-align: center;
-    user-select: none;
-    padding: 0;
+    right: unset;
+    bottom: unset;
+}
+
+.post-comments {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
+    position: static;
+    right: unset;
+    bottom: unset;
+    color: #cccccc;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.post-comment-icon {
+    color: #7d7d7d;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.post-comment-icon {
+    color: #7d7d7d;
+    cursor: pointer;
+    font-size: 26px;
+    transition: transform 0.2s;
+}
+
+.post-comment-icon:hover {
+    transform: scale(1.15);
 }

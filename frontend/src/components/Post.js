@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faBookmark, faFlag } from "@fortawesome/free-solid-svg-icons"
+import { faComment } from "@fortawesome/free-regular-svg-icons";
+import moment from "moment";
 import Heart from '@react-sandbox/heart'
 import '../styles/Post.css';
 
@@ -10,7 +12,6 @@ function Post({ post }) {
     const [heartState, setHeartState] = useState(post.isLiked || false);
     const [bookmarked, setBookmarked] = useState(post.isBookmarked || false);
 
-    // TODO - add timestamp for post createdAt
     // TODO - add comments
 
     const handleLike = async (id) => {
@@ -69,13 +70,17 @@ function Post({ post }) {
     return (
         <div key={post._id} className="post">
             <div className="post-header">
-                <img className="post-avatar" onClick={() => navigate(`/profile/${post.user._id}`)} src={post.user.profilePicture || null}></img> {/* TODO - Fallback to a default avatar if profilePicture is null */}
+                <img className="post-avatar" onClick={() => navigate(`/profile/${post.user._id}`)} src={post.user.profilePicture || null}></img>
                 <h2 className="post-username" onClick={() => navigate(`/profile/${post.user._id}`)}>{post.user.username}</h2>
+                <div className="post-timestamp">
+                    <span>{moment(post.createdAt).calendar({ sameElse: `L, h:mm A` })}</span>
+                </div>
                 <div className="post-options">
                     <FontAwesomeIcon
-                        icon={faEllipsis} 
-                        className="post-options-icon" 
-                        title="More" 
+                        icon={faEllipsis}
+                        className="post-options-icon"
+                        title="More"
+                        style={{ fontWeight: 100, fontSize: "1.1em" }} // Make icon thinner and slightly smaller
                         onClick={(e) => {
                             e.stopPropagation();
                             setPostOptionsVisible((prev) => !prev);
@@ -101,19 +106,26 @@ function Post({ post }) {
 
             <img src={post.image} alt="Post" className="post-image" onDoubleClick={() => handleLike(post._id)} />
 
-            <p className="post-caption">
-                <strong>{post.user.username}</strong> <a>{post.caption}</a>
+            <div className="post-actions-row">
                 <div className="post-likes">
-                    <a>{post.likes.length}</a>
                     <Heart
                         width={28}
                         height={28}
                         active={heartState}
                         onClick={() => handleLike(post._id)}
+                        strokeWidth={60}
                         inactiveColor="#7d7d7d"
                         className="post-heart"
                     />
+                    <a>{post.likes.length}</a>
                 </div>
+                <div className="post-comments">
+                    <FontAwesomeIcon icon={faComment} className="post-comment-icon" onClick={() => navigate(`/post/${post._id}`)} />
+                    <a>{post.comments.length}</a>
+                </div>
+            </div>
+            <p className="post-caption">
+                <strong>{post.user.username}</strong> <a>{post.caption}</a>
             </p>
         </div>
     );
