@@ -12,7 +12,6 @@ function FullPost() {
     const [loading, setLoading] = useState(true);
     const [height, setHeight] = useState(0);
 
-    // TODO - handle errors
     // TODO - add delete comment functionality
 
     useEffect(() => {
@@ -92,6 +91,11 @@ function FullPost() {
             commentInput.value = ''; // Clear the input field            
         } catch (error) {
             console.error("Error submitting comment:", error);
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.textContent = error.message || "Failed to submit comment. Please try again.";
+            setTimeout(() => {
+                errorMessage.textContent = '';
+            }, 5000);
         }
     }
 
@@ -155,6 +159,7 @@ function FullPost() {
                             />
                             <button type="submit" className="comment-submit-btn">Post Comment</button>
                         </form>
+                        <div className="error-message"></div>
                     </div>
                 </div>
             </div>
