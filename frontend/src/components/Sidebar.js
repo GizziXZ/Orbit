@@ -47,7 +47,7 @@ function Sidebar() {
         const formData = new FormData();
         formData.append("caption", caption);
         formData.append("image", image);
-        fetch("/api/posts/create", {
+        fetch("/api/post/create", {
             method: "POST",
             body: formData,
             headers: {

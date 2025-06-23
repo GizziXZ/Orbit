@@ -9,7 +9,7 @@ function Bookmarks() {
     useEffect(() => {
         const fetchBookmarks = async () => {
             try {
-                const response = await fetch('/api/posts/bookmarks', {
+                const response = await fetch('/api/post/bookmarks', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

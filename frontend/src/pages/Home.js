@@ -10,7 +10,7 @@ function Home() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`/api/posts`);
+                const response = await fetch(`/api/post`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

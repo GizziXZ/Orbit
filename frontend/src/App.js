@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'r
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./store/userSlice";
 import Home from "./pages/Home";
+import FullPost from "./pages/FullPost";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bookmarks from "./pages/Bookmarks";
@@ -57,6 +58,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<ProtectedRoute element={Home} />} />
                 <Route path="/home" element={<ProtectedRoute element={Home} />} />
+                <Route path="/post/:id" element={<ProtectedRoute element={FullPost} />} />
                 <Route path="/bookmarks" element={<ProtectedRoute element={Bookmarks} />} />
                 <Route path="/profile/:id" element={<ProtectedRoute element={Profile} />} />
                 <Route path="/profile" element={<ProtectedRoute element={Profile} />} />

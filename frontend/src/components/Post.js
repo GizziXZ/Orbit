@@ -12,14 +12,12 @@ function Post({ post }) {
     const [heartState, setHeartState] = useState(post.isLiked || false);
     const [bookmarked, setBookmarked] = useState(post.isBookmarked || false);
 
-    // TODO - add comments
-
     const handleLike = async (id) => {
         if (event && event.target && event.target.tagName === 'IMG' && heartState === true) return; // Prevent liking the post if the image is clicked and already liked
         setHeartState(!heartState);
         post.likes = heartState ? post.likes.filter(like => like !== post.user._id) : [...post.likes, post.user._id];
 
-        const response = await fetch(`/api/posts/${id}/like`, {
+        const response = await fetch(`/api/post/${id}/like`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +33,7 @@ function Post({ post }) {
     }
 
     const handleBookmark = async (id) => {
-        const response = await fetch(`/api/posts/${id}/bookmark`, {
+        const response = await fetch(`/api/post/${id}/bookmark`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
