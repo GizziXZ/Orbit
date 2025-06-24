@@ -68,6 +68,52 @@
     word-break: break-word;
 }
 
+.comment-options-icon {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.comment-options-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    user-select: none;
+}
+
+.comment-options-dropdown {
+    position: absolute;
+    right: 18px;
+    background-color: #242424;
+    border: 1px solid #333;
+    border-radius: 9px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    min-width: 100px;
+    padding: 5px 0;
+}
+
+.comment-options-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-options-dropdown li {
+    border-radius: 3px;
+    padding: 8px 12px;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.comment-options-dropdown li:hover {
+    background-color: #333;
+}
+
+.delete-comment-icon {
+    color: crimson;
+}
+
 .comment-box {
     position: sticky;
     bottom: 0;

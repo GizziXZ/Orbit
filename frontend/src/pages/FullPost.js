@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Topbar from "../components/Topbar";
 import Post from "../components/Post";
 import '../styles/FullPost.css';
@@ -7,12 +10,12 @@ import moment from "moment";
 
 function FullPost() {
     const navigate = useNavigate();
+    const userId = useSelector((state) => state.user.id);
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [height, setHeight] = useState(0);
-
-    // TODO - add delete comment functionality
+    const [commentOptionsIdx, setCommentOptionsIdx] = useState(null);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -46,6 +49,20 @@ function FullPost() {
             commentsEndRef.current.scrollIntoView({ behavior: "auto" });
         }
     }, [post?.comments?.length]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.comment-options-wrapper') && commentOptionsIdx !== null) {
+                setCommentOptionsIdx(null);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [commentOptionsIdx]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -99,6 +116,30 @@ function FullPost() {
         }
     }
 
+    const handleDelete = async (e) => {
+        e.stopPropagation();
+        if (!post || !post.comments || commentOptionsIdx === null) return;
+
+        const commentId = post.comments[commentOptionsIdx]._id;
+        try {
+            setCommentOptionsIdx(null);
+            const response = await fetch(`/api/post/${id}/comment/${commentId}`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error deleting comment: ${response.statusText}`);
+            }
+
+            setPost((prevPost) => ({
+                ...prevPost,
+                comments: prevPost.comments.filter((_, idx) => idx !== commentOptionsIdx),
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -144,6 +185,28 @@ function FullPost() {
                                     </span>
                                     <p>{comment.text}</p>
                                 </div>
+                                {comment.user?._id === userId && (
+                                    <div className="comment-options-wrapper" style={{ position: "relative" }}>
+                                        <FontAwesomeIcon
+                                            icon={faEllipsis}
+                                            className="comment-options-icon"
+                                            title="More"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setCommentOptionsIdx(idx === commentOptionsIdx ? null : idx);
+                                            }}
+                                        />
+                                        {commentOptionsIdx === idx && (
+                                            <div className="comment-options-dropdown">
+                                                <ul>
+                                                    <li onClick={handleDelete}>
+                                                        <FontAwesomeIcon icon={faTrash} className="delete-comment-icon" title="Delete Comment" /> Delete
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         ))}
                         <div ref={commentsEndRef} />

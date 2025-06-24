@@ -2,17 +2,17 @@ const jwt = require('jsonwebtoken');
 const Post = require('../../models/posts');
 const User = require('../../models/users');
 
-async function addComment(req, res) {
+async function deleteComment(req, res) {
     const token = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
     const postId = req.params.id;
-    const { text } = req.body;
+    const commentId = req.params.commentId;
 
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    if (!text || text.trim() === '') {
-        return res.status(400).json({ error: 'Comment text cannot be empty' });
+    if (!postId || !commentId) {
+        return res.status(400).json({ error: 'Post ID and Comment ID are required' });
     }
 
     try {
@@ -26,27 +26,18 @@ async function addComment(req, res) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        const comment = {
-            user: user.id,
-            text: text.trim(),
-            createdAt: new Date(),
-        };
+        const commentIndex = post.comments.findIndex(comment => comment._id.toString() === commentId && comment.user._id.toString() === user.id);
+        if (commentIndex === -1) {
+            return res.status(404).json({ error: 'Comment not found or you do not have permission to delete this comment' });
+        }
 
-        post.comments.push(comment);
+        post.comments.splice(commentIndex, 1);
         await post.save();
-        const populatedComment = {
-            ...comment,
-            user: {
-                id: user.id,
-                username: user.username,
-                profilePicture: user.profilePicture
-            }
-        };
-        return res.status(201).json(populatedComment);
+        return res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (error) {
-        console.error('Error adding comment:', error);
+        console.error('Error finding user:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-module.exports = addComment;
+module.exports = deleteComment;
