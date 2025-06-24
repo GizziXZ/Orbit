@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faTrash, faFlag } from "@fortawesome/free-solid-svg-icons";
 import Topbar from "../components/Topbar";
 import Post from "../components/Post";
 import '../styles/FullPost.css';
@@ -201,6 +201,9 @@ function FullPost() {
                                                 <ul>
                                                     <li onClick={handleDelete}>
                                                         <FontAwesomeIcon icon={faTrash} className="delete-comment-icon" title="Delete Comment" /> Delete
+                                                    </li>
+                                                    <li>
+                                                        <FontAwesomeIcon icon={faFlag} className="report" title="Report" /> Report
                                                     </li>
                                                 </ul>
                                             </div>
