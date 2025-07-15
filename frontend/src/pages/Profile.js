@@ -63,62 +63,67 @@ function Profile() {
             ) : user ? (
             <>
                 <div className="profile-content">
-                    <div className="profile-card">
-                        <div className="profile-header">
-                            <img
-                                src={user.profilePicture}
-                                className="profile-picture"
-                                alt={`${user.username}'s profile picture`}
-                            />
-                            <div className="profile-info">
-                                <h1 className="profile-username">{user.username}</h1>
-                                <p className="profile-joined">
-                                    Joined: {new Date(user.createdAt).toLocaleDateString()}
-                                </p>
+                    <aside className="profile-sidebar">
+                        <div className="profile-card">
+                            <div className="profile-header">
+                                <img
+                                    src={user.profilePicture}
+                                    className="profile-picture"
+                                    alt={`${user.username}'s profile picture`}
+                                />
+                                <div className="profile-info">
+                                    <h1 className="profile-username">{user.username}</h1>
+                                    <p className="profile-joined">
+                                        Joined: {new Date(user.createdAt).toLocaleDateString()}
+                                    </p>
+                                </div>
+                                <div className="profile-bio-row">
+                                    <p className="profile-bio">{user.bio || "No bio available"}</p>
+                                    {id === currentUserId && (
+                                        <FontAwesomeIcon icon={faPencil} className="edit-icon" />
+                                    )}
+                                </div>
                             </div>
-                            {id === currentUserId && (
-                                <FontAwesomeIcon icon={faPencil} className="edit-icon" />
+                            {id !== currentUserId && (
+                                <button
+                                    className="follow-button"
+                                    style={{
+                                        backgroundColor: following ? "#27ad60" : "",
+                                        color: following ? "#fff" : "",
+                                    }}
+                                    onClick={handleFollow}
+                                >
+                                    {following ? "Followed" : "Follow"}
+                                </button>
                             )}
+                            <div className="profile-stats">
+                                <div className="profile-stat">
+                                    <span className="profile-stat-number">{user.followers}</span>
+                                    <span className="profile-stat-label">Followers</span>
+                                </div>
+                                <hr className="profile-stat-divider" />
+                                <div className="profile-stat">
+                                    <span className="profile-stat-number">{user.following}</span>
+                                    <span className="profile-stat-label">Following</span>
+                                </div>
+                                <hr className="profile-stat-divider" />
+                                <div className="profile-stat">
+                                    <span className="profile-stat-number">{user.posts.length}</span>
+                                    <span className="profile-stat-label">Posts</span>
+                                </div>
+                            </div>
                         </div>
-                        {id !== currentUserId && (
-                            <button
-                                className="follow-button"
-                                style={{
-                                    backgroundColor: following ? "#27ad60" : "",
-                                    color: following ? "#fff" : "",
-                                }}
-                                onClick={handleFollow}
-                            >
-                                {following ? "Followed" : "Follow"}
-                            </button>
+                    </aside>
+                    <main className="profile-posts-container">
+                        <h2 className="profile-posts-title">Posts</h2>
+                        {user.posts.length > 0 ? (
+                            user.posts.map((post) => (
+                                <Post key={post._id} post={post} />
+                            ))
+                        ) : (
+                            <div className="profile-no-posts">No posts available</div>
                         )}
-                        <p className="profile-bio">{user.bio || "No bio available"}</p>
-                        <div className="profile-stats">
-                            <div className="profile-stat">
-                                <span className="profile-stat-number">{user.followers}</span>
-                                <span className="profile-stat-label">Followers</span>
-                            </div>
-                            <hr className="profile-stat-divider" />
-                            <div className="profile-stat">
-                                <span className="profile-stat-number">{user.following}</span>
-                                <span className="profile-stat-label">Following</span>
-                            </div>
-                            <hr className="profile-stat-divider" />
-                            <div className="profile-stat">
-                                <span className="profile-stat-number">{user.posts.length}</span>
-                                <span className="profile-stat-label">Posts</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="profile-posts-container">
-                    {user.posts.length > 0 ? (
-                        user.posts.map((post) => (
-                            <Post key={post._id} post={post} />
-                        ))
-                    ) : (
-                        <div className="profile-no-posts">No posts available</div>
-                    )}
+                    </main>
                 </div>
             </>
             ) : (
